@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN</title>
+    <link href="./style/css/bootstrap.min.css" rel="stylesheet">
+    <!--<link rel="stylesheet" href="./style/index.css"> -->
+</head>
+<body>
+    <section class="vh-100">
+        <div class="container py-5 h-100">
+          <div class="row d-flex align-items-center justify-content-center h-100">
+            <div class="col-md-8 col-lg-7 col-xl-6">
+              <img src="./imagens/draw2.svg"
+                class="img-fluid" alt="Phone image">
+            </div>
+            <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+              <form method="post" action="/login">
+                <!-- Email input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="email" id="email" class="form-control form-control-lg" name="userID" value=""/>
+                  <label class="form-label" for="form1Example13">Email</label>
+                </div>
+      
+                <!-- Password input -->
+                <div data-mdb-input-init class="form-outline mb-4">
+                  <input type="password" id="private" class="form-control form-control-lg" name="Senha" value=""/>
+                  <label class="form-label" for="form1Example23">Senha</label>
+                </div>
+                <!-- Submit button -->
+                <div data-mdb-input-init class="form-outline mb-4" style="display: flex;justify-content: center;">
+                  <button type="button" onclick="" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
+                  style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</button>
+                  <span></span>
+                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block"
+                  style="width: 25%;font-size: 95%;height: 10%;">LOGAR</button>
+                </div>   
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+</body>
+</html>
