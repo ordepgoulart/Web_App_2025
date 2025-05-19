@@ -42,7 +42,7 @@ function manipularSubmissao(evento){
             listaDeProdutos.push(produto);
             localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
             formulario.reset();
-            mostrarTabelaClientes();
+            mostrarTabelaProdutos();
         }
         else alert("!!! DADOS REDUNDANTES FORAM ENCONTRADOS !!!")
     }
@@ -54,7 +54,7 @@ function manipularSubmissao(evento){
 
 }
 
-function mostrarTabelaClientes(){
+function mostrarTabelaProdutos(){
     const divTabela = document.getElementById("tabela");
     divTabela.innerHTML=""; //apagando o conteúdo da div
     if (listaDeProdutos.length === 0){
@@ -109,4 +109,4 @@ function excluirProduto(barras){
     }
 }
 
-mostrarTabelaClientes();
+mostrarTabelaProdutos();
