@@ -15,7 +15,7 @@
             <h1>Cadastro de Produtos</h1>
         </div>
         <form id="formCadProduto" action="#" method="POST" class="row g-3 needs-validation border m-1 p-2" novalidate>
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" name="nome" required>
                 <div class="invalid-feedback">
@@ -55,6 +55,27 @@
                     Por favor, informe um código de barras válido.
                 </div>
             </div>
+            <div class="col-md-2">
+                <label for="qtde" class="form-label">Quantidade:</label>
+                <input type="number" class="form-control" id="qtde" name="qtde" required min="1" max="9999999999999" value="1">
+                <div class="invalid-feedback">
+                    Por favor, informe uma quantidade válida.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="valor" class="form-label">Preço:</label>
+                <input type="number" class="form-control" id="valor" name="valor" required min="0" step="0.01" value="0.00">
+                <div class="invalid-feedback">
+                    Por favor, informe um valor válido.
+                </div>
+            </div>
+            <div class="col-md-4">
+                    <label for="data" class="form-label">Data de Recebimento:</label>
+                    <input type="date" name="data" id="datEx" required class="form-control">
+                    <div class="invalid-feedback">
+                        Por favor, informe uma data válida!
+                    </div>
+            </div>
             <div class="col-12 text-center">
                 <button class="btn btn-primary" type="submit">Cadastrar</button>
                 <a href="../menu.html" class="btn btn-secondary">Voltar</a>
@@ -67,7 +88,7 @@
 
 </body>
 
-<script src="../js/scriptCliente.js"></script>
+<script src="../js/scriptProduto.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 
 </html>

@@ -31,7 +31,7 @@ function manipularSubmissao(evento){
             formulario.reset();
             mostrarTabelaClientes();
         }
-        else alert("!!! DADOS REUNDANTESD FORAM ENCONTRADOS !!!")
+        else alert("!!! DADOS REDUNDANTES FORAM ENCONTRADOS !!!")
     }
     else{
         formulario.classList.add('was-validated');
