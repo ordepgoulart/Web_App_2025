@@ -19,14 +19,14 @@
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" required>
                 <div class="invalid-feedback">
-                    Por favor, informe o nome do cliente!
+                    Por favor, informe o nome do fornecedor!
                 </div>
             </div>
             <div class="col-md-4">
-                <label for="cpf" class="form-label">CPF:</label>
-                <input type="text" class="form-control" id="cpf" required>
+                <label for="cnpj" class="form-label">CNPJ:</label>
+                <input type="text" class="form-control" id="cnpj" required>
                 <div class="invalid-feedback">
-                    Por favor, informe o seu cpf!
+                    Por favor, informe o seu CNPJ!
                 </div>
             </div>
             <div class="col-md-4">
@@ -39,14 +39,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-5">
                 <label for="cidade" class="form-label">Cidade</label>
                 <input type="text" class="form-control" id="cidade" required>
                 <div class="invalid-feedback">
                     Por favor, informe a cidade!
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <label for="uf" class="form-label">UF</label>
                 <select class="form-select" id="uf" required>
                     <option selected disabled value="">Escolha um estado</option>
@@ -84,13 +84,25 @@
                 <label for="cep" class="form-label">CEP:</label>
                 <input type="text" class="form-control" id="cep" required>
                 <div class="invalid-feedback">
-                    Por favor, informe um cep.
+                    Por favor, informe um CEP.
                 </div>
             </div>
-                <div class="col-12 text-center">
-                    <button class="btn btn-primary" type="submit">Cadastrar</button>
-                    <a href="../menu.html" class="btn btn-secondary">Voltar</a>
+            <div class="col-md-3">
+                <label for="cat" class="form-label">Categoria:</label>
+                <select class="form-select" id="cat" name="cat" required>
+                    <option selected disabled value="">Escolha uma Categoria</option>
+                    <option value="Atacadista">Atacadista</option>
+                    <option value="Fabricante">Fabricante</option>
+                    <option value="Importadores">Importadores</option>
+                </select>
+                <div class="invalid-feedback">
+                    Por favor, selecione uma categoria válida.
                 </div>
+            </div>
+            <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                <a href="../menu.html" class="btn btn-secondary">Voltar</a>
+            </div>
         </form>
         <div id="tabela">
             
