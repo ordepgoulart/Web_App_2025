@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="/style/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style/css/bootstrap-grid.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="alert alert-secondary text-center mt-5">
+            <h1>Cadastro de Produtos</h1>
+        </div>
+        <form id="formCadProduto" action="#" method="POST" class="row g-3 needs-validation border m-1 p-2" novalidate>
+            <div class="col-md-4">
+                <label for="nome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+                <div class="invalid-feedback">
+                    Por favor, informe um nome para o Produto!
+                </div>
+            </div>
+            <div class="col-md-4">
+                <label for="cnpj" class="form-label">CNPJ:</label>
+                <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+                <div class="invalid-feedback">
+                    Por favor, informe o CNPJ do fornecedor!
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="cat" class="form-label">Categoria</label>
+                <select class="form-select" id="cat" name="cat" required>
+                    <option selected disabled value="">Escolha uma Categoria</option>
+                    <option value="Higiene Pessoal">Higiene Pessoal</option>
+                    <option value="Hortifruti">Hortifruti</option>
+                    <option value="Limpeza">Limpeza</option>
+                    <option value="Eletrônicos">Eletrônicos</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Mercearia">Mercearia</option>
+                    <option value="Açougue">Açougue</option>
+                    <option value="Padaria">Padaria</option>
+                    <option value="Utilidades Domésticas">Utilidades Domésticas</option>
+                    <option value="MA">MA</option>
+                </select>
+                <div class="invalid-feedback">
+                    Por favor, selecione uma categoria válida.
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label for="bar" class="form-label">Código de Barras:</label>
+                <input type="number" class="form-control" id="bar" name="bar" required min="1000000000000" max="9999999999999" value="1000000000000">
+                <div class="invalid-feedback">
+                    Por favor, informe um código de barras válido.
+                </div>
+            </div>
+            <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+                <a href="../menu.html" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+        <div id="tabela">
+            
+        </div>
+    </div>
+
+</body>
+
+<script src="../js/scriptCliente.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</html>

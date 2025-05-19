@@ -1,5 +1,6 @@
 const formulario = document.getElementById("formCadCliente");
 let listaDeClientes = [];
+let listaAux = [];
 
 if (localStorage.getItem("clientes")){
     //recuperando do armazenamento local a lista de clientes
@@ -7,6 +8,13 @@ if (localStorage.getItem("clientes")){
 }
 
 formulario.onsubmit=manipularSubmissao;
+
+function validar(cliente){
+    listaAux = listaDeClientes.filter((obj) => obj.cpf == cliente.cpf);
+    if(listaAux.length > 0)
+        return false;
+    return true;
+}
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
@@ -17,10 +25,13 @@ function manipularSubmissao(evento){
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const cliente = {cpf,nome,telefone,cidade,uf,cep};
-        listaDeClientes.push(cliente);
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        formulario.reset();
-        mostrarTabelaClientes();
+        if(validar(cliente)){
+            listaDeClientes.push(cliente);
+            localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+            formulario.reset();
+            mostrarTabelaClientes();
+        }
+        else alert("!!! DADOS REUNDANTESD FORAM ENCONTRADOS !!!")
     }
     else{
         formulario.classList.add('was-validated');

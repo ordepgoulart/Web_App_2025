@@ -31,6 +31,9 @@ app.use(express.static("./publico"));
 // Query String -> FALSE
 app.use(express.urlencoded({extended:true}));   
 
+app.post("/cadastros/produto.html",(requisicao,resposta) =>{
+    manipularSubmissao(event);
+});
 
 
 app.post("/login", (requisicao,resposta) =>{
