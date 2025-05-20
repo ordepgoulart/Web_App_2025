@@ -1,10 +1,21 @@
 const formulario = document.getElementById("formCadCliente");
+let urlBase = "http://localhost:4000/clientes";
 let listaDeClientes = [];
 let listaAux = [];
 
-if (localStorage.getItem("clientes")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeClientes = JSON.parse(localStorage.getItem("clientes"));
+function obterDadosClientes(){
+    fetch(urlBase, {
+        method:"GET",
+    }).then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista)=>{
+        listaDeClientes = lista;
+        mostrarTabelaClientes();
+    })
+    .catch((erro) => {
+        alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
 }
 
 formulario.onsubmit=manipularSubmissao;

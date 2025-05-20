@@ -17,24 +17,38 @@
             </div>
             <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
               <form method="post" action="/login">
+                <div data-mdb-input-init class="form-outline mb-2">
+                  <input type="text" id="cpf" class="form-control form-control-lg" name="cpf" value=""/>
+                  <label class="form-label" for="cpf">CPF</label>
+                </div>
+                <div class="invalid-feedback">
+                  Por favor, informe um CPF válido!
+                </div>
+                <!-- Nome Imput -->
+                <div data-mdb-input-init class="form-outline mb-2">
+                  <input type="text" id="nome" class="form-control form-control-lg" name="nome" value=""/>
+                  <label class="form-label" for="nome">Nome</label>
+                </div>
                 <!-- Email input -->
-                <div data-mdb-input-init class="form-outline mb-4">
+                <div data-mdb-input-init class="form-outline mb-2">
                   <input type="email" id="email" class="form-control form-control-lg" name="userID" value=""/>
                   <label class="form-label" for="form1Example13">Email</label>
                 </div>
-      
+                <div class="invalid-feedback">
+                  Por favor, informe um EMAIL válido!
+                </div>
                 <!-- Password input -->
-                <div data-mdb-input-init class="form-outline mb-4">
+                <div data-mdb-input-init class="form-outline mb-2">
                   <input type="password" id="private" class="form-control form-control-lg" name="Senha" value=""/>
                   <label class="form-label" for="form1Example23">Senha</label>
                 </div>
                 <!-- Submit button -->
                 <div data-mdb-input-init class="form-outline mb-4" style="display: flex;justify-content: center;">
-                  <a type="button" href="./cadastroUser.html" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
-                  style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</a>
+                  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
+                  style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</button>
                   <span></span>
-                  <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block"
-                  style="width: 25%;font-size: 95%;height: 10%;">LOGAR</button>
+                  <a type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" href="./login.html"
+                  style="width: 25%;font-size: 95%;height: 10%;">LOGAR</a>
                 </div>   
                 </div>
               </form>

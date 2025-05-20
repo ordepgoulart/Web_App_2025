@@ -56,7 +56,7 @@ app.post("/login", (requisicao,resposta) =>{
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>LOGIN</title>
             <link href="./style/css/bootstrap.min.css" rel="stylesheet">
-            <link rel="stylesheet" href="./style/index.css">
+            <!--<link rel="stylesheet" href="./style/index.css"> -->
         </head>
         <body>
             <section class="vh-100">
@@ -79,34 +79,19 @@ app.post("/login", (requisicao,resposta) =>{
                           <input type="password" id="private" class="form-control form-control-lg" name="Senha" value="${Senha}"/>
                           <label class="form-label" for="form1Example23">Senha</label>
                         </div>
-              
-                        <div class="d-flex justify-content-around align-items-center mb-4">
-                          <!-- Checkbox -->
-                          <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="PERSISTENCE" name="Remb" checked />
-                            <label class="form-check-label" for="form1Example3"> Lembre de mim </label>
-                          </div>
-                          <a href="#!">Esqueceu a sua senha?</a>
-                        </div>
-              
                         <!-- Submit button -->
-                        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block m-5">LOGAR</button>
-              
-                        <div class="divider d-flex align-items-center my-4">
-                          <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+                        <div data-mdb-input-init class="form-outline mb-4" style="display: flex;justify-content: center;">
+                          <a type="button" href="./cadastroUser.html" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
+                          style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</a>
+                          <span></span>
+                          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block"
+                          style="width: 25%;font-size: 95%;height: 10%;">LOGAR</button>
                         </div>
-              
-                        <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="#!"
-                          role="button">
-                          <i class="fab fa-facebook-f me-2"></i>Continue com o Facebook
-                        </a>
-                        <a data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" style="background-color: #55acee" href="#!"
-                          role="button">
-                          <i class="fab fa-twitter me-2"></i>Continue com o Twitter</a>
+			                  <div class="alert alert-danger text-center my-2">
+                       	  Usuário ou senha incorretos !
+                      	</div>   
+                        </div>
                       </form>
-                      <div class="alert alert-danger text-center my-2">
-                          Usuário ou senha incorretos !
-                      </div>
                     </div>
                   </div>
                 </div>

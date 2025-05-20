@@ -22,11 +22,13 @@
                     Por favor, informe um nome para o Produto!
                 </div>
             </div>
-            <div class="col-md-4">
-                <label for="cnpj" class="form-label">CNPJ:</label>
-                <input type="text" class="form-control" id="cnpj" name="cnpj" required>
+            <div class="col-md-3">
+                <label for="fornecedor" class="form-label">Fornecedor: </label>
+                <select class="form-select" id="fornecedor" name="fornecedor" required onload="criarListaOp()">
+                    <option selected disabled value="">Escolha um fornecedor</option>
+                </select>
                 <div class="invalid-feedback">
-                    Por favor, informe o CNPJ do fornecedor!
+                    Por favor, selecione um fornecedor válido.
                 </div>
             </div>
             <div class="col-md-3">
