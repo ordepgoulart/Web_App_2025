@@ -12,6 +12,19 @@ if (localStorage.getItem("produtos")){
     listaDeClientes = JSON.parse(localStorage.getItem("produtos"));
 }
 
+const listaDeOp = document.getElementById("fornecedor");
+
+function criarListaOp(){
+    if(listaDeFornecedores.length > 0){
+        for(let i = 0; i < listaDeFornecedores.length; i++){
+            let op = document.createElement("option");
+            op.value = i;
+            op.innerText(listaDeFornecedores[i].nome);
+            listaDeOp.appendChild(op);
+        }
+    }
+}
+
 formulario.onsubmit=manipularSubmissao;
 
 function validarFornecedor(cnpj){
