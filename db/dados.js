@@ -11,5 +11,8 @@
     }
   ],
   "fornecedores": [],
-  "produtos": []
+  "produtos": [],
+  "usuários": [],
+  "categorias": [],
+  "entregadores": []
 }
