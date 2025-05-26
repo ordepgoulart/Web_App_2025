@@ -12,7 +12,7 @@
   ],
   "fornecedores": [],
   "produtos": [],
-  "usuários": [],
+  "users": [],
   "categorias": [],
   "entregadores": []
 }
