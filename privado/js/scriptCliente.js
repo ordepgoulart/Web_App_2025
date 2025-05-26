@@ -2,6 +2,7 @@ const formulario = document.getElementById("formCadCliente");
 let urlBase = "http://localhost:4000/clientes";
 let listaDeClientes = [];
 let listaAux = [];
+let sizesID;
 
 function obterDadosClientes(){
     fetch(urlBase, {
@@ -15,6 +16,25 @@ function obterDadosClientes(){
     })
     .catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
+
+function inserir(cliente){
+    fetch(urlBase, {
+        "method":"POST",
+        "headers": {
+            "Content-Type": "aplication/json"
+        },
+        "body" : JSON.stringify(cliente)
+    }).then((resposta) => {
+        if(resposta.ok){
+            obterDadosClientes();
+            sizesID = listaDeClientes.length();
+        }
+            
+    })
+    .catch((erro) => {
+        alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
 
@@ -35,12 +55,11 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const cliente = {cpf,nome,telefone,cidade,uf,cep};
+        const id = sizesID++;
+        const cliente = {cpf,nome,telefone,cidade,uf,cep,id};
         if(validar(cliente)){
-            listaDeClientes.push(cliente);
-            localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+            inserir(cliente);
             formulario.reset();
-            mostrarTabelaClientes();
         }
         else alert("!!! DADOS REDUNDANTES FORAM ENCONTRADOS !!!")
     }
@@ -86,7 +105,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}','${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -96,14 +115,21 @@ function mostrarTabelaClientes(){
     }
 }
 
-function excluirCliente(cpf){
+function excluirCliente(id,cpf){
     if(confirm("Deseja realmente excluir o cliente " + cpf + "?")){
-        listaDeClientes = listaDeClientes.filter((cliente) => { 
-            return cliente.cpf !== cpf;
+        fetch(`${urlBase}/${id}`, {
+            "method":"DELETE",
+        })
+        .then((resposta) =>{
+            if(resposta.ok){
+                obterDadosClientes();
+                document.getElementById(cpf).remove(); //excluir a linha da tabela
+            }
+        })
+        .catch((erro) => {
+            alert("ERRO AO TENTAR EXCLUIR AS INFORMAÇÕES DO SERVIDOR");
         });
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
     }
 }
 
-mostrarTabelaClientes();
+obterDadosClientes();
