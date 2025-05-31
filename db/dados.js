@@ -22,6 +22,22 @@
       "data": "2006-02-20"
     }
   ],
-  "categorias": [],
-  "entregadores": []
+  "categorias": [
+    {
+      "id": 1,
+      "nome": "Alimenticios",
+      "descricao": "daodpjopidjijweija"
+    }
+  ],
+  "entregadores": [
+    {
+      "id": 215,
+      "bicp": "49907539848",
+      "nome": "Laila",
+      "telefone": "(18) 99699-0906",
+      "uf": "SP",
+      "cidade": "São Paulo",
+      "cep": "19023-300"
+    }
+  ]
 }

@@ -37,8 +37,7 @@ app.post("/cadastros/produto.html",(requisicao,resposta) =>{
 
 
 app.post("/register",(requisicao,resposta) => {
-  let conteudo = ``;
-  let 
+  let conteudo = ``; 
 })
 
 
