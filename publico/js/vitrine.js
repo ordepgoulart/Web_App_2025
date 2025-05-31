@@ -1,4 +1,7 @@
-function carregarProdutos(){
+let listaDeProdutos  = [];
+let listaDeCategorias = [];
+
+/*function carregarProdutos(){
     fetch('https://fakestoreapi.com/products',{
         method:"GET"
     }).then((resposta) => {
@@ -22,6 +25,37 @@ function carregarProdutos(){
     }).catch((erro) =>{
         alert("NÃO FOI POSSÍVEL CARREGAR OS PRODUTOS>: [" + erro + "]");
     })
-
     carregarProdutos();
+}*/
+
+function obterDadosCat(){
+    fetch("http://localhost:4000/categorias", {
+        method:"GET"
+    }).then((resposta)=>{
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista) =>{
+        listaDeCategorias = lista;
+        carregarCat();
+        
+    }).catch((erro)=>{
+        console.log("[ERRO] - NÃO FOI POSSÍVEL CARREGAR AS INFORMAÇÕES DO SERVIDOR")
+    })
+ }
+
+obterDadosCat();
+
+function carregarCat(){
+    const listaCat = document.getElementById("cats");
+    console.log(listaDeCategorias);
+    if(listaDeCategorias.length > 0){
+        let corpoLista = document.createElement('li');
+        for(let i = 0; i < listaDeCategorias.length;i++){
+            corpoLista.innerHTML = `<a class="dropdown-item" href="">${listaDeCategorias[i].nome}</a><li><hr class="dropdown-divider"></li>`;
+            listaCat.appendChild(corpoLista);
+        }
+    }
+
 }
+
+
