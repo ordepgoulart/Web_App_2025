@@ -36,6 +36,12 @@ app.post("/cadastros/produto.html",(requisicao,resposta) =>{
 });
 
 
+app.post("/register",(requisicao,resposta) => {
+  let conteudo = ``;
+  let 
+})
+
+
 app.post("/login", (requisicao,resposta) =>{
     // Desestruturação JS
     let conteudo = ``;

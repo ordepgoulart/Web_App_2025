@@ -3,11 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Página principal da Aplicação</title>
+    <title>Vitrine</title>
 </head>
 <body>
-    <h1>Bem-vindo a página principal da aplicação</h1>
-    <h2>Aqui deveria existir uma imagem.</h2>
-    <a href="./login.html">A ...</a>
+    <a class="navbar-brand" href="#"></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Categorias
+            </a>
+            <ul class="dropdown-menu" onload="">
+                <li><a class="dropdown-item">Geral</a></li>
+                <li><hr class="dropdown-divider"></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/login">LOGAR</a>
+          </li>
+        </ul>
+    <div id="vitrine" style="display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-gap: 20px; align-items: center; justify-content: center;">
+
+    </div>
 </body>
+<script src="./js/vitrine.js"></script>
 </html>

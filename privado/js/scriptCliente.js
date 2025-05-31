@@ -12,6 +12,9 @@ function obterDadosClientes(){
             return resposta.json();
     }).then((lista)=>{
         listaDeClientes = lista;
+        if(listaDeClientes.length == 0)
+            sizesID = 0;
+        else sizesID = listaDeClientes.length;
         mostrarTabelaClientes();
     })
     .catch((erro) => {
@@ -29,7 +32,6 @@ function inserir(cliente){
     }).then((resposta) => {
         if(resposta.ok){
             obterDadosClientes();
-            sizesID = listaDeClientes.length();
         }
             
     })
@@ -105,7 +107,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}','${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}','${listaDeClientes[i].cpf}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -123,7 +125,7 @@ function excluirCliente(id,cpf){
         .then((resposta) =>{
             if(resposta.ok){
                 obterDadosClientes();
-                document.getElementById(cpf).remove(); //excluir a linha da tabela
+                document.getElementById(cpf)?.remove(); //excluir a linha da tabela
             }
         })
         .catch((erro) => {

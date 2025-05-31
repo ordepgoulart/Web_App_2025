@@ -12,7 +12,16 @@
   ],
   "fornecedores": [],
   "produtos": [],
-  "users": [],
+  "users": [
+    {
+      "id": 0,
+      "cpf": "50522650856",
+      "nome": "Pedro Sá Goulart",
+      "email": "pedro@hotmail.com",
+      "senha": "dsadasdadsd",
+      "data": "2006-02-20"
+    }
+  ],
   "categorias": [],
   "entregadores": []
 }
