@@ -1,32 +1,41 @@
 let listaDeProdutos  = [];
 let listaDeCategorias = [];
 
-/*function carregarProdutos(){
+
+function montarGrid(){
+    const divitrine = document.getElementById("vitrine");
+    
+    for(let i = 0; i < listaDeProdutos.length; i++){
+        const meucard = document.createElement('div');
+        meucard.innerHTML=`
+            <div class="card" style="width: 18rem; margin-bottom: 5rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${listaDeProdutos[i].title}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${listaDeProdutos[i].category}</h6>
+                    <span class="card-text" style="display: flex; overflow-y: scroll;height:8rem">${listaDeProdutos[i].description}</span>
+                    <span class="card-link">R$ ${listaDeProdutos[i].price}</span>
+                    <a href="#" class="btn btn-outline-success" style="margin-left:  5rem">COMPRE</a>
+                </div>
+            </div>`;
+        divitrine.appendChild(meucard);
+    }
+}
+
+function obterProdutos(){
     fetch('https://fakestoreapi.com/products',{
         method:"GET"
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
-    }).then((listaDeProdutos) => {
-        const divVitrine = document.getElementById("vitrine");
-        for(const produto of listaDeProdutos){
-            let card = document.createElement('div');
-            card.innerHTML=`
-            <div class="card" style="width: 18rem;">
-                <img src="${produto.image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${produto.title}</h5>
-                    <p class="card-text">R$ ${produto.price}</p>
-                    <a href="#" class="btn btn-primary">COMPRAR</a>
-                </div>
-            </div>`
-            divVitrine.appendChild(card);
-        }
+    }).then((lista) => {
+        listaDeProdutos = lista;
+        montarGrid();
     }).catch((erro) =>{
         alert("NÃO FOI POSSÍVEL CARREGAR OS PRODUTOS>: [" + erro + "]");
     })
-    carregarProdutos();
-}*/
+}
+
+
 
 function obterDadosCat(){
     fetch("http://localhost:4000/categorias", {
@@ -58,4 +67,4 @@ function carregarCat(){
 
 }
 
-
+obterProdutos();
