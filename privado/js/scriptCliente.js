@@ -57,7 +57,7 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const id = sizesID++;
+        const id = sizesID;
         const cliente = {cpf,nome,telefone,cidade,uf,cep,id};
         if(validar(cliente)){
             inserir(cliente);

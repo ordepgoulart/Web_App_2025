@@ -47,6 +47,7 @@ function validar(fornecedor){
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
+        const id = sizeID;
         const cnpj = document.getElementById("cnpj").value;
         const nome = document.getElementById("nome").value;
         const telefone = document.getElementById("telefone").value;
@@ -54,7 +55,7 @@ function manipularSubmissao(evento){
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const cat = document.getElementById("cat").value
-        const fornecedor = {cnpj,nome,telefone,cidade,uf,cep,cat};
+        const fornecedor = {cnpj,nome,telefone,cidade,uf,cep,cat,id};
         if(validar(fornecedor)){
             inserir(fornecedor);
             mostrarTabelaFornecedores();
@@ -131,4 +132,4 @@ function excluirFornecedores(id, nome, cnpj){
     }
 }
 
-mostrarTabelaFornecedores();
+obterDadosFornecedores();
