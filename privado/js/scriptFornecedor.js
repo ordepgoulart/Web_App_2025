@@ -47,6 +47,7 @@ function validar(fornecedor){
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
+        const id = sizeID;
         const cnpj = document.getElementById("cnpj").value;
         const nome = document.getElementById("nome").value;
         const telefone = document.getElementById("telefone").value;
@@ -54,7 +55,7 @@ function manipularSubmissao(evento){
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const cat = document.getElementById("cat").value
-        const fornecedor = {cnpj,nome,telefone,cidade,uf,cep,cat};
+        const fornecedor = {cnpj,nome,telefone,cidade,uf,cep,cat,id};
         if(validar(fornecedor)){
             inserir(fornecedor);
             mostrarTabelaFornecedores();
@@ -105,7 +106,7 @@ function mostrarTabelaFornecedores(){
                 <td>${listaDeFornecedores[i].uf}</td>
                 <td>${listaDeFornecedores[i].cep}</td>
                 <td>${listaDeFornecedores[i].cat}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirFornecedores('${listaDeFornecedores[i].id}','${listaDeFornecedores[i].nome}','${listaDeFornecedores[i].cnpj}','${listaDeFornecedores[i].cnpj}')"><i class="bi bi-trash">ExcluirExcluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirFornecedores('${listaDeFornecedores[i].id}','${listaDeFornecedores[i].nome}','${listaDeFornecedores[i].cnpj}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }

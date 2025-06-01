@@ -1,35 +1,39 @@
 const formulario = document.getElementById("formCadProduto");
 const listaDeOp = document.getElementById("fornecedorLista");
 const listaCat = document.getElementById("cat");
-let urlBase = "http://localhost:4000/produtos";
+let urlBase1 = "http://localhost:4000/produtos";
+let urlBase2 = "http://localhost:4000/fornecedores";
+let urlBase3 = "http://localhost:4000/categorias";
 let listaDeProdutos = [];
 let listaDeFornecedores = [];
 let listaDeCategorias = [];
 let listaAux = [];
 
 function obterDadosProdutos(){
-    fetch(urlBase, {
+    fetch(urlBase1, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
     }).then((lista) => {
-        listaDeProduto = lista;
+        listaDeProdutos = lista;
         if(listaDeProdutos.length == 0)
             sizesID = 0;
         else sizesID = listaDeProdutos.length;
+        mostrarTabelaProdutos();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
+
 function obterDadosFornecedores(){
-    fetch(urlBase, {
+    fetch(urlBase2, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
-    }).then((lista) => {
-        listaDeFornecedores = lista;
+    }).then((listaF) => {
+        listaDeFornecedores = listaF;
         criarListaOp();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
@@ -37,13 +41,13 @@ function obterDadosFornecedores(){
 }
 
 function obterDadosCategorias(){
-    fetch(urlBase, {
+    fetch(urlBase3, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
-    }).then((lista)=>{
-        listaDeCategorias = lista;
+    }).then((listaC)=>{
+        listaDeCategorias = listaC;
         criarListaCat();
     })
     .catch((erro) => {
@@ -51,14 +55,28 @@ function obterDadosCategorias(){
     });
 }
 
-
+function inserir(produto){
+    fetch(urlBase1, {
+        "method":"POST",
+        "headers": {
+            "Content-Type":"aplication/json"
+        },
+        "body":JSON.stringify(produto)
+    }).then((resposta) => {
+        if(resposta.ok){
+            obterDadosProdutos();
+        }
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
 
 function criarListaOp(){
     if(listaDeFornecedores.length > 0){
         for(let i = 0; i < listaDeFornecedores.length; i++){
-            let op = document.createElement("option");
+            const op = document.createElement("option");
             op.value = listaDeFornecedores[i].nome;
-            op.innerText(listaDeFornecedores[i].nome);
+            op.innerHTML = listaDeFornecedores[i].nome;
             listaDeOp.appendChild(op);
         }
     }
@@ -67,10 +85,10 @@ function criarListaOp(){
 function criarListaCat(){
     if(listaDeCategorias.length > 0){
         for(let i = 0; i < listaDeCategorias.length; i++){
-            let op = document.createElement("option");
+            const op = document.createElement("option");
             op.value = listaDeCategorias[i].nome;
-            op.innerText(listaDeCategorias[i].nome);
-            listaDeOp.appendChild(op);
+            op.innerHTML = listaDeCategorias[i].nome;
+            listaCat.appendChild(op);
         }
     }
 }
@@ -79,14 +97,14 @@ formulario.onsubmit=manipularSubmissao;
 
 function validarProduto(produto){
     listaAux = listaDeProdutos.filter((obj) => obj.barras == produto.barras);
-    if(listaAux.length > 0)
+    if(listaAux.length == 0)
         return true;
     return false;
 }
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const idProd = sizesID;
+        const id = sizesID;
         const nome = document.getElementById("nome").value;
         const fornecedor = document.getElementById("fornecedorLista").value;
         const categoria = document.getElementById("cat").value;
@@ -94,7 +112,7 @@ function manipularSubmissao(evento){
         const estoque = document.getElementById("qtde").value;
         const valor = document.getElementById("valor").value;
         const data = document.getElementById("datEx").value;
-        const produto = {idProd,fornecedor,nome,categoria,barras,estoque,valor,data};
+        const produto = {id,fornecedor,nome,categoria,barras,estoque,valor,data};
         if(validarProduto(produto)){
             inserir(produto);
             mostrarTabelaProdutos();
@@ -144,7 +162,7 @@ function mostrarTabelaProdutos(){
                 <td>${listaDeProdutos[i].valor}</td>
                 <td>${listaDeProdutos[i].barras}</td>
                 <td>${listaDeProdutos[i].data}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].idProd}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -154,7 +172,7 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(nome,barras, id){
+function excluirProduto(nome, barras, id){
     if(confirm("Deseja realmente excluir o produto " + nome + "?")){
         fetch(`${urlBase}/${id}`, {
             method:"DELETE",
