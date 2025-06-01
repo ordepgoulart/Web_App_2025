@@ -9,7 +9,7 @@ function obterDadosEntregadores(){
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
-            return resposta.json;
+            return resposta.json();
     }).then((lista) => {
         listaDeEntregadores = lista;
         if(listaDeEntregadores.length == 0)
@@ -18,7 +18,7 @@ function obterDadosEntregadores(){
         mostrarTabelaEntregadores();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
-    })
+    });
 }
 
 function inserir(entregador){
@@ -41,7 +41,7 @@ function inserir(entregador){
 formulario.onsubmit=manipularSubmissao;
 
 function validar(entregador){
-    listaAux = listaDeEntregadores.filter((obj) => obj.bicp == fornecedor.bicp);
+    listaAux = listaDeEntregadores.filter((obj) => obj.bicp == entregador.bicp);
     if(listaAux.length > 0)
         return false;
     return true;
@@ -55,8 +55,7 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const cat = document.getElementById("cat").value
-        const entregador = {bicp,nome,telefone,cidade,uf,cep,cat,id};
+        const entregador = {bicp,nome,telefone,cidade,uf,cep,id};
         const id = sizesID++;
         if(validar(entregador)){
             inserir(entregador);
@@ -92,7 +91,7 @@ function mostrarTabelaEntregadores(){
                 <th>Cidade</th>
                 <th>UF</th>
                 <th>CEP</th>
-                <th>Categoria</th>
+                <th>Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
@@ -106,8 +105,7 @@ function mostrarTabelaEntregadores(){
                 <td>${listaDeEntregadores[i].cidade}</td>
                 <td>${listaDeEntregadores[i].uf}</td>
                 <td>${listaDeEntregadores[i].cep}</td>
-                <td>${listaDeEntregadores[i].cat}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -132,4 +130,4 @@ function excluirEntregador(id, nome, bicp){
     }
 }
 
-mostrarTabelaEntregadores();
+obterDadosEntregadores();
