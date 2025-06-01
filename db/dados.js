@@ -10,11 +10,22 @@
       "cep": "14023-013"
     }
   ],
-  "fornecedores": [],
+  "fornecedores": [
+    {
+      "id": "a66e",
+      "cnpj": "15548779623415",
+      "nome": "Roberto",
+      "telefone": "18996968989",
+      "cidade": "São Paulo",
+      "uf": "SP",
+      "cep": "56416944",
+      "cat": "Atacadista"
+    }
+  ],
   "produtos": [],
   "users": [
     {
-      "id": 0,
+      "id": "0",
       "cpf": "50522650856",
       "nome": "Pedro Sá Goulart ",
       "email": "pedro@hotmail.com",
@@ -22,7 +33,7 @@
       "data": "2006-02-20"
     },
     {
-      "id": 1,
+      "id": "1",
       "cpf": "2212238961",
       "nome": "MICHELY SA DA SILVA GOULART",
       "email": "michely@hotmail.com",
@@ -32,14 +43,14 @@
   ],
   "categorias": [
     {
-      "id": 1,
-      "nome": "Alimenticios",
-      "descricao": "daodpjopidjijweija"
+      "id": "1",
+      "nome": "Alimentícios",
+      "descricao": "Comida e derivados."
     }
   ],
   "entregadores": [
     {
-      "id": 215,
+      "id": "215",
       "bicp": "49907539848",
       "nome": "Laila",
       "telefone": "(18) 99699-0906",
