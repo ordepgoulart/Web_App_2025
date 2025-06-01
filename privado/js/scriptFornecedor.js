@@ -105,7 +105,7 @@ function mostrarTabelaFornecedores(){
                 <td>${listaDeFornecedores[i].uf}</td>
                 <td>${listaDeFornecedores[i].cep}</td>
                 <td>${listaDeFornecedores[i].cat}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirFornecedores('${listaDeFornecedores[i].nome}','${listaDeFornecedores[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirFornecedores('${listaDeFornecedores[i].id}','${listaDeFornecedores[i].nome}','${listaDeFornecedores[i].cnpj}')"><i class="bi bi-trash">ExcluirExcluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -122,7 +122,7 @@ function excluirFornecedores(id, nome, cnpj){
         })
         .then((resposta) =>{
             if(resposta.ok){
-                obterDadosFornecedores()
+                obterDadosFornecedores();
                 document.getElementById(cnpj)?.remove();
             }
         }).catch((erro) => {
@@ -131,4 +131,4 @@ function excluirFornecedores(id, nome, cnpj){
     }
 }
 
-obterDadosFornecedores();
+mostrarTabelaFornecedores();
