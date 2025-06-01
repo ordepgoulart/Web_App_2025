@@ -1,14 +1,16 @@
 const formulario = document.getElementById("formCadProduto");
 const listaDeOp = document.getElementById("fornecedorLista");
 const listaCat = document.getElementById("cat");
-let urlBase = "http://localhost:4000/produtos";
+let urlBase1 = "http://localhost:4000/produtos";
+let urlBase2 = "http://localhost:4000/fornecedores";
+let urlBase3 = "http://localhost:4000/categorias";
 let listaDeProdutos = [];
 let listaDeFornecedores = [];
 let listaDeCategorias = [];
 let listaAux = [];
 
 function obterDadosProdutos(){
-    fetch(urlBase, {
+    fetch(urlBase1, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
@@ -18,18 +20,19 @@ function obterDadosProdutos(){
         if(listaDeProdutos.length == 0)
             sizesID = 0;
         else sizesID = listaDeProdutos.length;
+        mostrarTabelaProdutos();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
 function obterDadosFornecedores(){
-    fetch(urlBase, {
+    fetch(urlBase2, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
-    }).then((lista) => {
-        listaDeFornecedores = lista;
+    }).then((listaF) => {
+        listaDeFornecedores = listaF;
         criarListaOp();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
@@ -37,13 +40,13 @@ function obterDadosFornecedores(){
 }
 
 function obterDadosCategorias(){
-    fetch(urlBase, {
+    fetch(urlBase3, {
         method:"GET",
     }).then((resposta) => {
         if(resposta.ok)
             return resposta.json();
-    }).then((lista)=>{
-        listaDeCategorias = lista;
+    }).then((listaC)=>{
+        listaDeCategorias = listaC;
         criarListaCat();
     })
     .catch((erro) => {
@@ -56,9 +59,9 @@ function obterDadosCategorias(){
 function criarListaOp(){
     if(listaDeFornecedores.length > 0){
         for(let i = 0; i < listaDeFornecedores.length; i++){
-            let op = document.createElement("option");
+            const op = document.createElement("option");
             op.value = listaDeFornecedores[i].nome;
-            op.innerText(listaDeFornecedores[i].nome);
+            op.innerHTML = listaDeFornecedores[i].nome;
             listaDeOp.appendChild(op);
         }
     }
@@ -67,10 +70,10 @@ function criarListaOp(){
 function criarListaCat(){
     if(listaDeCategorias.length > 0){
         for(let i = 0; i < listaDeCategorias.length; i++){
-            let op = document.createElement("option");
+            const op = document.createElement("option");
             op.value = listaDeCategorias[i].nome;
-            op.innerText(listaDeCategorias[i].nome);
-            listaDeOp.appendChild(op);
+            op.innerHTML = listaDeCategorias[i].nome;
+            listaCat.appendChild(op);
         }
     }
 }
