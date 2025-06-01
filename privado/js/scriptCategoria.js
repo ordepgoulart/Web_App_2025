@@ -1,9 +1,9 @@
 const formulario = document.getElementById("formCadCategoria");
+let urlBase = "http://localhost:4000/categorias";
 let listaDeCategorias = [];
 let listaAux = [];
-let sizesID;
 
-function obterDadosCategoria(){
+function obterDadosCategorias(){
     fetch(urlBase, {
         method:"GET",
     }).then((resposta) => {
@@ -11,9 +11,6 @@ function obterDadosCategoria(){
             return resposta.json();
     }).then((lista)=>{
         listaDeCategorias = lista;
-        if(listaDeCategorias.length == 0)
-            sizesID = 0;
-        else sizesID = listaDeCategorias.length;
         mostrarTabelaCategorias();
     })
     .catch((erro) => {
@@ -32,7 +29,6 @@ function inserir(categoria){
         if(resposta.ok){
             obterDadosCategorias();
         }
-            
     })
     .catch((erro) => {
         alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
@@ -53,8 +49,7 @@ function manipularSubmissao(evento){
         const id = document.getElementById("id").value;
         const nome = document.getElementById("nome").value;
         const descricao = document.getElementById("descricao").value;
-        const auxid = sizesID++;
-        const categoria = {id,nome,descricao,auxid};
+        const categoria = {id,nome,descricao};
         if(validar(categoria)){
             inserir(categoria);
             formulario.reset();
@@ -96,7 +91,7 @@ function mostrarTabelaCategorias(){
                 <td>${listaDeCategorias[i].id}</td>
                 <td>${listaDeCategorias[i].nome}</td>
                 <td>${listaDeCategorias[i].descricao}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeCategorias[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCategoria('${listaDeCategorias[i].nome}','${listaDeCategorias[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -106,9 +101,9 @@ function mostrarTabelaCategorias(){
     }
 }
 
-function excluirCategoria(auxid,id){
-    if(confirm("Deseja realmente excluir a categoria " + id + "?")){
-        fetch(`${urlBase}/${auxid}`, {
+function excluirCategoria(nome, id){
+    if(confirm("Deseja realmente excluir a categoria " + nome + "?")){
+        fetch(`${urlBase}/${id}`, {
             "method":"DELETE",
         })
         .then((resposta) =>{

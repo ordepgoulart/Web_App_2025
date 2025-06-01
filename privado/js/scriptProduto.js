@@ -1,8 +1,40 @@
 const formulario = document.getElementById("formCadProduto");
+let urlBase = "http://localhost:4000/produtos";
 let listaDeProdutos = [];
 let listaDeFornecedores = [];
 let listaAux = [];
 
+function obterDadosProdutos(){
+    fetch(urlBase, {
+        method:"GET",
+    }).then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista) => {
+        listaDeProduto = lista;
+        if(listaDeProdutos.length == 0)
+            sizesID = 0;
+        else sizesID = listaDeProdutos.length;
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
+function obterDadosFornecedores(){
+    fetch(urlBase, {
+        method:"GET",
+    }).then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista) => {
+        listaDeFornecedores = lista;
+        if(listaDeFornecedores.length == 0)
+            sizesID = 0;
+        else sizesID = listaDeFornecedores.length;
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
+/*
 if (localStorage.getItem("fornecedores")){
     //recuperando do armazenamento local a lista de clientes
     listaDeFornecedores = JSON.parse(localStorage.getItem("fornecedores"));
@@ -11,7 +43,7 @@ if (localStorage.getItem("produtos")){
     //recuperando do armazenamento local a lista de clientes
     listaDeClientes = JSON.parse(localStorage.getItem("produtos"));
 }
-
+*/
 const listaDeOp = document.getElementById("fornecedor");
 
 function criarListaOp(){
@@ -52,9 +84,7 @@ function manipularSubmissao(evento){
         const data = document.getElementById("datEx").value;
         const produto = {cnpj,nome,categoria,barras,estoque,valor,data};
         if(validarFornecedor(cnpj) && validarProduto(produto)){
-            listaDeProdutos.push(produto);
-            localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
-            formulario.reset();
+            inserir(produto);
             mostrarTabelaProdutos();
         }
         else alert("!!! DADOS REDUNDANTES FORAM ENCONTRADOS !!!")
@@ -102,7 +132,7 @@ function mostrarTabelaProdutos(){
                 <td>${listaDeProdutos[i].valor}</td>
                 <td>${listaDeProdutos[i].barras}</td>
                 <td>${listaDeProdutos[i].data}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].barras}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -118,7 +148,7 @@ function excluirProduto(barras){
             return produto.barras !== barras;
         });
         localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
+        document.getElementById(barras).remove(); //excluir a linha da tabela
     }
 }
 

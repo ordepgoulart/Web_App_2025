@@ -1,12 +1,41 @@
 const formulario = document.getElementById("formCadFornecedor");
+let urlBase = "http://localhost:4000/fornecedores";
 let listaDeFornecedores = [];
 let listaAux = [];
+let sizesID;
 
-if (localStorage.getItem("fornecedores")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeFornecedores = JSON.parse(localStorage.getItem("fornecedores"));
+function obterDadosFornecedores(){
+    fetch(urlBase, {
+        method:"GET",
+    }).then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista) => {
+        listaDeFornecedores = lista;
+        if(listaDeFornecedores.length == 0)
+            sizesID = 0;
+        else sizesID = listaDeFornecedores.length;
+        mostrarTabelaFornecedores();
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    })    
 }
 
+function inserir(fornecedor){
+    fetch(urlBase, {
+        "method":"POST",
+        "headers": {
+            "Content-Type":"aplication/json"
+        },
+        "body":JSON.stringify(fornecedor)
+    }).then((resposta) => {
+        if(resposta.ok){
+            obterDadosFornecedores();
+        }
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
 formulario.onsubmit=manipularSubmissao;
 
 function validar(fornecedor){
@@ -24,12 +53,10 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const categoria = document.getElementById("cat").value
-        const fornecedor = {cpf,nome,telefone,cidade,uf,cep};
+        const cat = document.getElementById("cat").value
+        const fornecedor = {cnpj,nome,telefone,cidade,uf,cep,cat};
         if(validar(fornecedor)){
-            listaDeFornecedores.push(fornecedor);
-            localStorage.setItem("fornecedores", JSON.stringify(listaDeFornecedores));
-            formulario.reset();
+            inserir(fornecedor);
             mostrarTabelaFornecedores();
         }
         else alert("!!! DADOS REDUNDANTES FORAM ENCONTRADOS !!!")
@@ -46,7 +73,7 @@ function mostrarTabelaFornecedores(){
     const divTabela = document.getElementById("tabela");
     divTabela.innerHTML=""; //apagando o conteúdo da div
     if (listaDeFornecedores.length === 0){
-        divTabela.innerHTML="<p class='alert alert-info text-center'>Não há clientes cadastrados</p>";
+        divTabela.innerHTML="<p class='alert alert-info text-center'>Não há Fornecedores cadastrados</p>";
     }
     else{
         const tabela = document.createElement('table');
@@ -56,27 +83,29 @@ function mostrarTabelaFornecedores(){
         const corpo = document.createElement('tbody');
         cabecalho.innerHTML=`
             <tr>
-                <th>CPF</th>
+                <th>CNPJ</th>
                 <th>Nome</th>
                 <th>Telefone</th>
                 <th>Cidade</th>
                 <th>UF</th>
                 <th>CEP</th>
+                <th>Categoria</th>
                 <th>Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
-        for (let i=0; i < listaDeClientes.length; i++){
+        for (let i=0; i < listaDeFornecedores.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeClientes[i].cpf;
+            linha.id=listaDeFornecedores[i].cnpj;
             linha.innerHTML=`
-                <td>${listaDeClientes[i].cpf}</td>
-                <td>${listaDeClientes[i].nome}</td>
-                <td>${listaDeClientes[i].telefone}</td>
-                <td>${listaDeClientes[i].cidade}</td>
-                <td>${listaDeClientes[i].uf}</td>
-                <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].cpf}')"><i class="bi bi-trash"></i></button></td>
+                <td>${listaDeFornecedores[i].cnpj}</td>
+                <td>${listaDeFornecedores[i].nome}</td>
+                <td>${listaDeFornecedores[i].telefone}</td>
+                <td>${listaDeFornecedores[i].cidade}</td>
+                <td>${listaDeFornecedores[i].uf}</td>
+                <td>${listaDeFornecedores[i].cep}</td>
+                <td>${listaDeFornecedores[i].cat}</td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirFornecedores('${listaDeFornecedores[i].nome}','${listaDeFornecedores[i].id}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -86,13 +115,19 @@ function mostrarTabelaFornecedores(){
     }
 }
 
-function excluirCliente(cpf){
-    if(confirm("Deseja realmente excluir o cliente " + cpf + "?")){
-        listaDeClientes = listaDeClientes.filter((cliente) => { 
-            return cliente.cpf !== cpf;
+function excluirFornecedores(id, nome, cnpj){
+    if(confirm("Deseja realmente excluir o fornecedor " + nome + "?")){
+        fetch(`${urlBase}/${id}`,{
+            "method":"DELETE",
+        })
+        .then((resposta) =>{
+            if(resposta.ok){
+                obterDadosFornecedores()
+                document.getElementById(cnpj)?.remove();
+            }
+        }).catch((erro) => {
+            alert("ERRO AO TENTAR EXCLUIR AS INFORMAÇÕES DO SERVIDOR");
         });
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
     }
 }
 
