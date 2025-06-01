@@ -1,7 +1,10 @@
 const formulario = document.getElementById("formCadProduto");
+const listaDeOp = document.getElementById("fornecedorLista");
+const listaCat = document.getElementById("cat");
 let urlBase = "http://localhost:4000/produtos";
 let listaDeProdutos = [];
 let listaDeFornecedores = [];
+let listaDeCategorias = [];
 let listaAux = [];
 
 function obterDadosProdutos(){
@@ -27,31 +30,46 @@ function obterDadosFornecedores(){
             return resposta.json();
     }).then((lista) => {
         listaDeFornecedores = lista;
-        if(listaDeFornecedores.length == 0)
-            sizesID = 0;
-        else sizesID = listaDeFornecedores.length;
+        criarListaOp();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
-/*
-if (localStorage.getItem("fornecedores")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeFornecedores = JSON.parse(localStorage.getItem("fornecedores"));
+
+function obterDadosCategorias(){
+    fetch(urlBase, {
+        method:"GET",
+    }).then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    }).then((lista)=>{
+        listaDeCategorias = lista;
+        criarListaCat();
+    })
+    .catch((erro) => {
+        alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
 }
-if (localStorage.getItem("produtos")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeClientes = JSON.parse(localStorage.getItem("produtos"));
-}
-*/
-const listaDeOp = document.getElementById("fornecedor");
+
+
 
 function criarListaOp(){
     if(listaDeFornecedores.length > 0){
         for(let i = 0; i < listaDeFornecedores.length; i++){
             let op = document.createElement("option");
-            op.value = i;
+            op.value = listaDeFornecedores[i].nome;
             op.innerText(listaDeFornecedores[i].nome);
+            listaDeOp.appendChild(op);
+        }
+    }
+}
+
+function criarListaCat(){
+    if(listaDeCategorias.length > 0){
+        for(let i = 0; i < listaDeCategorias.length; i++){
+            let op = document.createElement("option");
+            op.value = listaDeCategorias[i].nome;
+            op.innerText(listaDeCategorias[i].nome);
             listaDeOp.appendChild(op);
         }
     }
@@ -59,15 +77,8 @@ function criarListaOp(){
 
 formulario.onsubmit=manipularSubmissao;
 
-function validarFornecedor(cnpj){
-    listaAux = listaDeFornecedores.filter((obj) => obj.cnpj == cnpj);
-    if(listaAux.length > 0)
-        return true;
-    return false;
-}
-
 function validarProduto(produto){
-    listaAux = listaDeProdutos.filter((obj) => obj.nome != produto.nome && obj.barras == produto.barras);
+    listaAux = listaDeProdutos.filter((obj) => obj.barras == produto.barras);
     if(listaAux.length > 0)
         return true;
     return false;
@@ -75,15 +86,16 @@ function validarProduto(produto){
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const cnpj = document.getElementById("cnpj").value;
+        const idProd = sizesID;
         const nome = document.getElementById("nome").value;
+        const fornecedor = document.getElementById("fornecedorLista").value;
         const categoria = document.getElementById("cat").value;
         const barras = document.getElementById("bar").value;
         const estoque = document.getElementById("qtde").value;
         const valor = document.getElementById("valor").value;
         const data = document.getElementById("datEx").value;
-        const produto = {cnpj,nome,categoria,barras,estoque,valor,data};
-        if(validarFornecedor(cnpj) && validarProduto(produto)){
+        const produto = {idProd,fornecedor,nome,categoria,barras,estoque,valor,data};
+        if(validarProduto(produto)){
             inserir(produto);
             mostrarTabelaProdutos();
         }
@@ -112,7 +124,7 @@ function mostrarTabelaProdutos(){
         cabecalho.innerHTML=`
             <tr>
                 <th>NOME</th>
-                <th>CNPJ</th>
+                <th>FORNECEDOR</th>
                 <th>CATEGORIA</th>
                 <th>QTDE</th>
                 <th>VALOR</th>
@@ -126,13 +138,13 @@ function mostrarTabelaProdutos(){
             linha.id=listaDeProdutos[i].barras;
             linha.innerHTML=`
                 <td>${listaDeProdutos[i].nome}</td>
-                <td>${listaDeProdutos[i].cnpj}</td>
+                <td>${listaDeProdutos[i].fornecedor}</td>
                 <td>${listaDeProdutos[i].categoria}</td>
                 <td>${listaDeProdutos[i].estoque}</td>
                 <td>${listaDeProdutos[i].valor}</td>
                 <td>${listaDeProdutos[i].barras}</td>
                 <td>${listaDeProdutos[i].data}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].idProd}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -142,14 +154,21 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(barras){
-    if(confirm("Deseja realmente excluir o produto " + barras + "?")){
-        listaDeProdutos = listaDeProdutos.filter((produto) => { 
-            return produto.barras !== barras;
-        });
-        localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
-        document.getElementById(barras).remove(); //excluir a linha da tabela
+function excluirProduto(nome,barras, id){
+    if(confirm("Deseja realmente excluir o produto " + nome + "?")){
+        fetch(`${urlBase}/${id}`, {
+            method:"DELETE",
+        }).then((resposta) => {
+            if(resposta.ok){
+                obterDadosProdutos();
+                document.getElementById(barras)?.remove(); //excluir a linha da tabela
+            }
+        }).catch((erro) =>{
+            alert("ERRO AO TENTAR EXCLUIR AS INFORMAÇÕES DO SERVIDOR");
+        });    
     }
 }
 
 obterDadosProdutos();
+obterDadosCategorias();
+obterDadosFornecedores();

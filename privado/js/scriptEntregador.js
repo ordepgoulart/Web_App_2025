@@ -91,6 +91,7 @@ function mostrarTabelaEntregadores(){
                 <th>Cidade</th>
                 <th>UF</th>
                 <th>CEP</th>
+                <th>Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
@@ -104,7 +105,7 @@ function mostrarTabelaEntregadores(){
                 <td>${listaDeEntregadores[i].cidade}</td>
                 <td>${listaDeEntregadores[i].uf}</td>
                 <td>${listaDeEntregadores[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
