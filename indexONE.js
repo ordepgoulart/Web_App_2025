@@ -1,6 +1,24 @@
 import express from 'express';
 import session from 'express-session';
 import verificarAutenticacao from './seguranca/autenticar.js';
+let listaDeUsuarios = [];
+let listaAux = [];
+
+function obterDados(){
+    fetch("http://localhost:4000/users", {
+        method:"GET",
+    })
+    .then((resposta) => {
+        if(resposta.ok)
+            return resposta.json();
+    })
+    .then((lista)=>{
+        listaDeUsuarios = lista;
+    })
+    .catch((erro) => {
+        console.log("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
 
 // const express = require("express"); -> Antiga importação para o JS
 const listaDeClientes = [];
@@ -35,16 +53,11 @@ app.post("/cadastros/produto.html",(requisicao,resposta) =>{
     manipularSubmissao(event);
 });
 
-
-app.post("/register",(requisicao,resposta) => {
-  let conteudo = ``; 
-})
-
-
 app.post("/login", (requisicao,resposta) =>{
     // Desestruturação JS
     let conteudo = ``;
     let { userID, Senha } = requisicao.body; 
+    console.log(userID+ " " + Senha)
     /* -> Em resumo, desmonta o objeto, criando variáveis menores que recebem os valores respectivos aos atributos q refenciam 
     Seria o mesmo que:
         let email = requisicao.body.userID;
@@ -54,61 +67,67 @@ app.post("/login", (requisicao,resposta) =>{
         resposta.redirect("/menu.html")
     }
     else {
-        conteudo = `<!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>LOGIN</title>
-            <link href="./style/css/bootstrap.min.css" rel="stylesheet">
-            <!--<link rel="stylesheet" href="./style/index.css"> -->
-        </head>
-        <body>
-            <section class="vh-100">
-                <div class="container py-5 h-100">
-                  <div class="row d-flex align-items-center justify-content-center h-100">
-                    <div class="col-md-8 col-lg-7 col-xl-6">
-                      <img src="./imagens/draw2.svg"
-                        class="img-fluid" alt="Phone image">
-                    </div>
-                    <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                      <form method="post" action="/login">
-                        <!-- Email input -->
-                        <div data-mdb-input-init class="form-outline mb-4">
-                          <input type="email" id="email" class="form-control form-control-lg" name="userID" value="${userID}"/>
-                          <label class="form-label" for="form1Example13">Email</label>
-                        </div>
-              
-                        <!-- Password input -->
-                        <div data-mdb-input-init class="form-outline mb-4">
-                          <input type="password" id="private" class="form-control form-control-lg" name="Senha" value="${Senha}"/>
-                          <label class="form-label" for="form1Example23">Senha</label>
-                        </div>
-                        <!-- Submit button -->
-                        <div data-mdb-input-init class="form-outline mb-4" style="display: flex;justify-content: center;">
-                          <a type="button" href="./cadastroUser.html" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
-                          style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</a>
-                          <span></span>
-                          <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block"
-                          style="width: 25%;font-size: 95%;height: 10%;">LOGAR</button>
-                        </div>
-			                  <div class="alert alert-danger text-center my-2">
-                       	  Usuário ou senha incorretos !
-                      	</div>   
-                        </div>
-                      </form>
+        listaAux = listaDeUsuarios.filter((user) =>{
+          console.log(user.email + " " + user.senha);
+          return user.email == userID && user.senha == Senha;
+        });
+        if(listaAux.length > 0){
+          resposta.redirect("/index.html")
+        }
+        else{
+          conteudo = `<!DOCTYPE html>
+          <html lang="en">
+          <head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>LOGIN</title>
+              <link href="./style/css/bootstrap.min.css" rel="stylesheet">
+              <!--<link rel="stylesheet" href="./style/index.css"> -->
+          </head>
+          <body>
+              <section class="vh-100">
+                  <div class="container py-5 h-100">
+                    <div class="row d-flex align-items-center justify-content-center h-100">
+                      <div class="col-md-8 col-lg-7 col-xl-6">
+                        <img src="./imagens/draw2.svg"
+                          class="img-fluid" alt="Phone image">
+                      </div>
+                      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+                        <form method="post" action="/login">
+                          <!-- Email input -->
+                          <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="email" id="email" class="form-control form-control-lg" name="userID" value="${userID}"/>
+                            <label class="form-label" for="form1Example13">Email</label>
+                          </div>
+                
+                          <!-- Password input -->
+                          <div data-mdb-input-init class="form-outline mb-4">
+                            <input type="password" id="private" class="form-control form-control-lg" name="Senha" value="${Senha}"/>
+                            <label class="form-label" for="form1Example23">Senha</label>
+                          </div>
+                          <!-- Submit button -->
+                          <div data-mdb-input-init class="form-outline mb-4" style="display: flex;justify-content: center;">
+                            <a type="button" href="./cadastroUser.html" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" 
+                            style="width: 25%; margin-right: 15%;font-size: 95%;height: 10%;">CADASTRAR</a>
+                            <span></span>
+                            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block"
+                            style="width: 25%;font-size: 95%;height: 10%;">LOGAR</button>
+                          </div>
+                          <div class="alert alert-danger text-center my-2">
+                            Usuário ou senha incorretos !
+                          </div>   
+                          </div>
+                        </form>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </section>
-        </body>
-        </html>`;
-        resposta.send(conteudo);
+                </section>
+          </body>
+          </html>`;
+          resposta.send(conteudo);
+        } 
     }
     resposta.end();
-    // if(localStorage.getItem("clientes")){
-    //     listaDeClientes = JSON.parse(localStorage.getItem("clietes"));
-    // }
 })
 
 app.use(verificarAutenticacao,express.static("./privado"));
@@ -124,3 +143,5 @@ app.get("/logout", (requisicao,resposta) =>{
 app.listen(porta, host, () =>{
     console.log(`Servidor em execução em http://${host}:${porta}`)
 })
+
+obterDados();
