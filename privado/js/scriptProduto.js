@@ -16,7 +16,7 @@ function obterDadosProdutos(){
         if(resposta.ok)
             return resposta.json();
     }).then((lista) => {
-        listaDeProduto = lista;
+        listaDeProdutos = lista;
         if(listaDeProdutos.length == 0)
             sizesID = 0;
         else sizesID = listaDeProdutos.length;
@@ -25,6 +25,7 @@ function obterDadosProdutos(){
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
+
 function obterDadosFornecedores(){
     fetch(urlBase2, {
         method:"GET",
@@ -54,7 +55,21 @@ function obterDadosCategorias(){
     });
 }
 
-
+function inserir(produto){
+    fetch(urlBase1, {
+        "method":"POST",
+        "headers": {
+            "Content-Type":"aplication/json"
+        },
+        "body":JSON.stringify(produto)
+    }).then((resposta) => {
+        if(resposta.ok){
+            obterDadosProdutos();
+        }
+    }).catch((erro) => {
+        alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
+    });
+}
 
 function criarListaOp(){
     if(listaDeFornecedores.length > 0){
@@ -82,14 +97,14 @@ formulario.onsubmit=manipularSubmissao;
 
 function validarProduto(produto){
     listaAux = listaDeProdutos.filter((obj) => obj.barras == produto.barras);
-    if(listaAux.length > 0)
+    if(listaAux.length == 0)
         return true;
     return false;
 }
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const idProd = sizesID;
+        const id = sizesID;
         const nome = document.getElementById("nome").value;
         const fornecedor = document.getElementById("fornecedorLista").value;
         const categoria = document.getElementById("cat").value;
@@ -97,7 +112,7 @@ function manipularSubmissao(evento){
         const estoque = document.getElementById("qtde").value;
         const valor = document.getElementById("valor").value;
         const data = document.getElementById("datEx").value;
-        const produto = {idProd,fornecedor,nome,categoria,barras,estoque,valor,data};
+        const produto = {id,fornecedor,nome,categoria,barras,estoque,valor,data};
         if(validarProduto(produto)){
             inserir(produto);
             mostrarTabelaProdutos();
@@ -147,7 +162,7 @@ function mostrarTabelaProdutos(){
                 <td>${listaDeProdutos[i].valor}</td>
                 <td>${listaDeProdutos[i].barras}</td>
                 <td>${listaDeProdutos[i].data}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].idProd}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -157,7 +172,7 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(nome,barras, id){
+function excluirProduto(nome, barras, id){
     if(confirm("Deseja realmente excluir o produto " + nome + "?")){
         fetch(`${urlBase}/${id}`, {
             method:"DELETE",

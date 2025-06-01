@@ -81,6 +81,7 @@ function mostrarTabelaCategorias(){
                 <th>ID</th>
                 <th>Nome</th>
                 <th>Descrição</th>
+                <th>Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
