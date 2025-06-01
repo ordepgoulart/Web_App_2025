@@ -12,33 +12,26 @@
   ],
   "fornecedores": [
     {
-      "id": "a66e",
-      "cnpj": "15548779623415",
-      "nome": "Roberto",
-      "telefone": "18996968989",
-      "cidade": "São Paulo",
+      "id": "4c12",
+      "cnpj": "2346854687534335",
+      "nome": "Casas Bahia",
+      "telefone": "18997225452",
+      "cidade": "Presidente Prudente",
       "uf": "SP",
-      "cep": "56416944",
+      "cep": "19062339",
       "cat": "Atacadista"
     }
   ],
-  "produtos": [],
-  "users": [
+  "produtos": [
     {
-      "id": "0",
-      "cpf": "50522650856",
-      "nome": "Pedro Sá Goulart ",
-      "email": "pedro@hotmail.com",
-      "senha": "pmh202731",
-      "data": "2006-02-20"
-    },
-    {
-      "id": "1",
-      "cpf": "2212238961",
-      "nome": "MICHELY SA DA SILVA GOULART",
-      "email": "michely@hotmail.com",
-      "senha": "mph312720",
-      "data": "1981-06-27"
+      "id": 0,
+      "fornecedor": "Casas Bahia",
+      "nome": "Roupas unissex para trilha",
+      "categoria": "Alimentícios",
+      "barras": "4654374654354",
+      "estoque": "20",
+      "valor": "139.99",
+      "data": "2025-02-20"
     }
   ],
   "categorias": [
@@ -57,6 +50,15 @@
       "uf": "SP",
       "cidade": "São Paulo",
       "cep": "19023-300"
+    },
+    {
+      "id": "1",
+      "bicp": "1245369845",
+      "nome": "Pedro Sá",
+      "telefone": "18996234455",
+      "cidade": "Presidente Prudente",
+      "uf": "SP",
+      "cep": "19062-339"
     }
   ]
 }
