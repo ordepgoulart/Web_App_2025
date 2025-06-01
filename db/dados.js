@@ -32,10 +32,20 @@
   ],
   "categorias": [
     {
-      "id": 0,
-      "nome": "LIMPEZA",
-      "descricao": "Produtos de limpeza doméstica em geral"
+      "id": 1,
+      "nome": "Alimenticios",
+      "descricao": "daodpjopidjijweija"
     }
   ],
-  "entregadores": []
+  "entregadores": [
+    {
+      "id": 215,
+      "bicp": "49907539848",
+      "nome": "Laila",
+      "telefone": "(18) 99699-0906",
+      "uf": "SP",
+      "cidade": "São Paulo",
+      "cep": "19023-300"
+    }
+  ]
 }

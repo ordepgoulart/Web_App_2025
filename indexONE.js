@@ -53,8 +53,6 @@ app.post("/cadastros/produto.html",(requisicao,resposta) =>{
     manipularSubmissao(event);
 });
 
-
-
 app.post("/login", (requisicao,resposta) =>{
     // Desestruturação JS
     let conteudo = ``;
