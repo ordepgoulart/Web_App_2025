@@ -4,6 +4,21 @@ let listaDeUsuarios = [];
 let listaAux = [];
 let sizesID;
 
+ // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation');
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  });
+
 function obterDados(){
     fetch(urlBase, {
         method:"GET",
@@ -55,12 +70,15 @@ function manipularSubmissaoUSER(evento){
         const data = document.getElementById("data").value;
         const id = sizesID++;
         const user = {cpf,nome,email,senha,data,id};
-        if(validar(user)){
+        if(validar(user) && email != "admin@dot.com"){
             inserir(user);
             formulario.reset();
             alert("Usuário registrado com sucesso")
+            window.location.href = "login.html";
         }
-        else alert("!!! O EMAIL OU CPF JÁ ESTÃO SENDO UTILIZADOS !!!");
+        else{
+            alert("!!! O EMAIL OU CPF JÁ ESTÃO SENDO UTILIZADOS !!!");  
+        } 
     }
     else{
         formulario.classList.add('was-validated');

@@ -16,12 +16,26 @@
     {
       "id": 0,
       "cpf": "50522650856",
-      "nome": "Pedro Sá Goulart",
+      "nome": "Pedro Sá Goulart ",
       "email": "pedro@hotmail.com",
-      "senha": "dsadasdadsd",
+      "senha": "pmh202731",
       "data": "2006-02-20"
+    },
+    {
+      "id": 1,
+      "cpf": "2212238961",
+      "nome": "MICHELY SA DA SILVA GOULART",
+      "email": "michely@hotmail.com",
+      "senha": "mph312720",
+      "data": "1981-06-27"
     }
   ],
-  "categorias": [],
+  "categorias": [
+    {
+      "id": 0,
+      "nome": "LIMPEZA",
+      "descricao": "Produtos de limpeza doméstica em geral"
+    }
+  ],
   "entregadores": []
 }
