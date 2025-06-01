@@ -152,4 +152,4 @@ function excluirProduto(barras){
     }
 }
 
-mostrarTabelaProdutos();
+obterDadosProdutos();
