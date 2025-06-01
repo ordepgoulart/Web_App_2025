@@ -12,13 +12,13 @@
   ],
   "fornecedores": [
     {
-      "id": "a66e",
-      "cnpj": "15548779623415",
-      "nome": "Roberto",
-      "telefone": "18996968989",
-      "cidade": "São Paulo",
+      "id": "4c12",
+      "cnpj": "2346854687534335",
+      "nome": "Casas Bahia",
+      "telefone": "18997225452",
+      "cidade": "Presidente Prudente",
       "uf": "SP",
-      "cep": "56416944",
+      "cep": "19062339",
       "cat": "Atacadista"
     }
   ],
