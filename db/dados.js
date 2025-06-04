@@ -24,14 +24,14 @@
   ],
   "produtos": [
     {
-      "id": 0,
+      "id": "5678541324786",
       "fornecedor": "Casas Bahia",
       "nome": "Roupas unissex para trilha",
       "categoria": "Alimentícios",
-      "barras": "4654374654354",
       "estoque": "20",
       "valor": "139.99",
-      "data": "2025-02-20"
+      "data": "2025-05-20",
+      "desc": "Roupas unissex para trilhas de alta dificuldade, resistência água, aquecimento interno de alta qualidade."
     }
   ],
   "categorias": [
@@ -59,6 +59,16 @@
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "19062-339"
+    }
+  ],
+  "users": [
+    {
+      "id": "0",
+      "cpf": "50522650763",
+      "nome": "Pedro Sá Goulart ",
+      "email": "pedro@hotmail.com",
+      "senha": "pmh202731",
+      "data": "2006-02-20"
     }
   ]
 }
