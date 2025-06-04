@@ -104,15 +104,15 @@ function validarProduto(produto){
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const id = sizesID;
+        const id = document.getElementById("bar").value;
         const nome = document.getElementById("nome").value;
         const fornecedor = document.getElementById("fornecedorLista").value;
         const categoria = document.getElementById("cat").value;
-        const barras = document.getElementById("bar").value;
         const estoque = document.getElementById("qtde").value;
         const valor = document.getElementById("valor").value;
         const data = document.getElementById("datEx").value;
-        const produto = {id,fornecedor,nome,categoria,barras,estoque,valor,data};
+        const desc = document.getElementById("desc").value;
+        const produto = {id,fornecedor,nome,categoria,estoque,valor,data,desc};
         if(validarProduto(produto)){
             inserir(produto);
             mostrarTabelaProdutos();
@@ -153,16 +153,16 @@ function mostrarTabelaProdutos(){
         tabela.appendChild(cabecalho);
         for (let i=0; i < listaDeProdutos.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeProdutos[i].barras;
+            linha.id=listaDeProdutos[i].id;
             linha.innerHTML=`
                 <td>${listaDeProdutos[i].nome}</td>
                 <td>${listaDeProdutos[i].fornecedor}</td>
                 <td>${listaDeProdutos[i].categoria}</td>
                 <td>${listaDeProdutos[i].estoque}</td>
                 <td>${listaDeProdutos[i].valor}</td>
-                <td>${listaDeProdutos[i].barras}</td>
+                <td>${listaDeProdutos[i].id}</td>
                 <td>${listaDeProdutos[i].data}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].barras}','${listaDeProdutos[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}','${listaDeProdutos[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -172,14 +172,14 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(nome, barras, id){
+function excluirProduto(nome, id){
     if(confirm("Deseja realmente excluir o produto " + nome + "?")){
-        fetch(`${urlBase}/${id}`, {
+        fetch(`${urlBase1}/${id}`, {
             method:"DELETE",
         }).then((resposta) => {
             if(resposta.ok){
                 obterDadosProdutos();
-                document.getElementById(barras)?.remove(); //excluir a linha da tabela
+                document.getElementById(id)?.remove(); //excluir a linha da tabela
             }
         }).catch((erro) =>{
             alert("ERRO AO TENTAR EXCLUIR AS INFORMAÇÕES DO SERVIDOR");
