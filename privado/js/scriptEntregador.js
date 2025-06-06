@@ -8,13 +8,14 @@ function obterDadosEntregadores(){
     fetch(urlBase, {
         method:"GET",
     }).then((resposta) => {
+        console.log(resposta);
         if(resposta.ok)
             return resposta.json();
     }).then((lista) => {
         listaDeEntregadores = lista;
         if(listaDeEntregadores.length == 0)
             sizesID = 0;
-        else sizesID =listaDeEntregadores.length;
+        else sizesID = listaDeEntregadores.length;
         mostrarTabelaEntregadores();
     }).catch((erro) => {
         alert("ERRO AO TENTAR RECUPERAR AS INFORMAÇÕES DO SERVIDOR");
@@ -36,9 +37,6 @@ function inserir(entregador){
         alert("ERRO AO TENTAR INSERIR AS INFORMAÇÕES DO SERVIDOR");
     });
 }
-
-
-formulario.onsubmit=manipularSubmissao;
 
 function validar(entregador){
     listaAux = listaDeEntregadores.filter((obj) => obj.bicp == entregador.bicp);
@@ -70,6 +68,8 @@ function manipularSubmissao(evento){
     evento.stopPropagation(); //impedindo que outros observem esse evento
 
 }
+
+formulario.onsubmit=manipularSubmissao;
 
 function mostrarTabelaEntregadores(){
     const divTabela = document.getElementById("tabela");
