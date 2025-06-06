@@ -8,17 +8,36 @@
       "cidade": "Presidente Prudente",
       "uf": "SP",
       "cep": "564684658"
+    },
+    {
+      "id": "1",
+      "cpf": "564535526355",
+      "nome": "Luis Vinicius",
+      "telefone": "18996256432453",
+      "cidade": "Presidente Prudente",
+      "uf": "SP",
+      "cep": "534685143689"
     }
   ],
   "fornecedores": [
     {
-      "id": 0,
+      "id": "0",
       "cnpj": "1564354783357",
       "nome": "MICHELY SA DA SILVA GOULART",
       "telefone": "18996234455",
       "cidade": "Presidente Prudente",
       "uf": "AL",
       "cep": "19062-339",
+      "cat": "Atacadista"
+    },
+    {
+      "id": 1,
+      "cnpj": "1564354783358",
+      "nome": "Casas Bahia\t",
+      "telefone": "18996253415634",
+      "cidade": "Presidente Prudente",
+      "uf": "AP",
+      "cep": "5647889498",
       "cat": "Atacadista"
     }
   ],
@@ -82,6 +101,16 @@
       "valor": "1.00",
       "data": "2025-06-20",
       "desc": "Mata boss em um único hit."
+    },
+    {
+      "id": "1000000000003",
+      "fornecedor": "MICHELY SA DA SILVA GOULART",
+      "nome": "Sumus ares",
+      "categoria": "Alimentícios",
+      "estoque": "8",
+      "valor": "159.99",
+      "data": "2025-01-20",
+      "desc": "Lorem sumos ne itens dela djs mska."
     }
   ],
   "categorias": [
@@ -99,6 +128,11 @@
       "id": "25",
       "nome": "Roupas",
       "descricao": "Vestimentas de diferentes tipos."
+    },
+    {
+      "id": "26",
+      "nome": "Higiene pessoal",
+      "descricao": "Produtos de higiene individual e variados."
     }
   ],
   "entregadores": [
