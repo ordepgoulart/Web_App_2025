@@ -54,7 +54,6 @@ function manipularSubmissao(evento){
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const id = sizesID;
-        const id = sizesID++;
         const entregador = {bicp,nome,telefone,cidade,uf,cep,id};
         if(validar(entregador)){
             inserir(entregador);
