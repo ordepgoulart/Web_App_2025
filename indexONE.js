@@ -58,19 +58,15 @@ app.post("/login", (requisicao,resposta) =>{
     Seria o mesmo que:
         let email = requisicao.body.userID;
         let senha = requisicao.body.Senha; */
-    if(userID === "admin@dot.com" && Senha == "12345"){
+    listaAux = listaDeUsuarios.filter((user) =>{
+          console.log(user.email + " " + user.senha);
+          return user.email == userID && user.senha == Senha;
+   });
+    if((userID === "admin@dot.com" && Senha == "12345") || listaAux.length > 0){
         requisicao.session.autenticado = true;
         resposta.redirect("/menu.html")
     }
     else {
-        listaAux = listaDeUsuarios.filter((user) =>{
-          console.log(user.email + " " + user.senha);
-          return user.email == userID && user.senha == Senha;
-        });
-        if(listaAux.length > 0){
-          resposta.redirect("/index.html")
-        }
-        else{
           conteudo = `<!DOCTYPE html>
           <html lang="en">
           <head>
@@ -120,8 +116,7 @@ app.post("/login", (requisicao,resposta) =>{
                 </section>
           </body>
           </html>`;
-          resposta.send(conteudo);
-        } 
+          resposta.send(conteudo); 
     }
     resposta.end();
 })
