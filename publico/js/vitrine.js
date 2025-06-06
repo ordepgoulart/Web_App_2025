@@ -1,6 +1,6 @@
 let listaDeProdutos  = [];
 let listaDeCategorias = [];
-
+let listaAux = []
 
 function montarGrid(){
     const divitrine = document.getElementById("vitrine");
@@ -10,10 +10,10 @@ function montarGrid(){
         meucard.innerHTML=`
             <div class="card" style="width: 18rem; margin-bottom: 5rem;">
                 <div class="card-body">
-                    <h5 class="card-title">${listaDeProdutos[i].title}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">${listaDeProdutos[i].category}</h6>
-                    <span class="card-text" style="display: flex; overflow-y: scroll;height:8rem">${listaDeProdutos[i].description}</span>
-                    <span class="card-link">R$ ${listaDeProdutos[i].price}</span>
+                    <h5 class="card-title">${listaDeProdutos[i].nome}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${listaDeProdutos[i].categoria}</h6>
+                    <span class="card-text" style="display: flex; overflow-y: scroll;height:8rem">${listaDeProdutos[i].desc}</span>
+                    <span class="card-link">R$ ${listaDeProdutos[i].valor}</span>
                     <a href="#" class="btn btn-outline-success" style="margin-left:  5rem">COMPRE</a>
                 </div>
             </div>`;
@@ -22,7 +22,7 @@ function montarGrid(){
 }
 
 function obterProdutos(){
-    fetch('https://fakestoreapi.com/products',{
+    fetch('http://localhost:4000/produtos',{
         method:"GET"
     }).then((resposta) => {
         if(resposta.ok)
@@ -52,15 +52,37 @@ function obterDadosCat(){
     })
  }
 
-obterDadosCat();
+
+
+function montarGridPersonalizada(cat){
+    const divitrine = document.getElementById("vitrine");
+    divitrine.innerHTML=``;
+    listaAux = listaDeProdutos.filter((produto) => produto.categoria == cat);
+    for(let i = 0; i < listaAux.length; i++){
+        const meucard = document.createElement('div');
+        meucard.innerHTML=`
+            <div class="card" style="width: 18rem; margin-bottom: 5rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${listaAux[i].nome}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">${listaAux[i].categoria}</h6>
+                    <span class="card-text" style="display: flex; overflow-y: scroll;height:8rem">${listaAux[i].desc}</span>
+                    <span class="card-link">R$ ${listaAux[i].valor}</span>
+                    <a href="#" class="btn btn-outline-success" style="margin-left:  5rem">COMPRE</a>
+                </div>
+            </div>`;
+        divitrine.appendChild(meucard);
+    }
+}
 
 function carregarCat(){
     const listaCat = document.getElementById("cats");
     console.log(listaDeCategorias);
     if(listaDeCategorias.length > 0){
-        let corpoLista = document.createElement('li');
         for(let i = 0; i < listaDeCategorias.length;i++){
-            corpoLista.innerHTML = `<a class="dropdown-item" href="">${listaDeCategorias[i].nome}</a><li><hr class="dropdown-divider"></li>`;
+            const corpoLista = document.createElement('li');
+            if(i == 0)
+                corpoLista.innerHTML = `<button class="dropdown-item" onclick=" montarGridPersonalizada('${listaDeCategorias[i].nome}')">${listaDeCategorias[i].nome}</button>`;
+            else corpoLista.innerHTML = `<li><hr class="dropdown-divider"></li><button class="dropdown-item" onclick=" montarGridPersonalizada('${listaDeCategorias[i].nome}')">${listaDeCategorias[i].nome}</button>`;
             listaCat.appendChild(corpoLista);
         }
     }
@@ -68,3 +90,4 @@ function carregarCat(){
 }
 
 obterProdutos();
+obterDadosCat();
