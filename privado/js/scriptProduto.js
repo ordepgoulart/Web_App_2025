@@ -96,7 +96,7 @@ function criarListaCat(){
 formulario.onsubmit=manipularSubmissao;
 
 function validarProduto(produto){
-    listaAux = listaDeProdutos.filter((obj) => obj.barras == produto.barras);
+    listaAux = listaDeProdutos.filter((obj) => obj.id == produto.id);
     if(listaAux.length == 0)
         return true;
     return false;
