@@ -47,7 +47,7 @@ function validar(fornecedor){
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const id = sizeID;
+        const id = ""+sizesID;
         const cnpj = document.getElementById("cnpj").value;
         const nome = document.getElementById("nome").value;
         const telefone = document.getElementById("telefone").value;
