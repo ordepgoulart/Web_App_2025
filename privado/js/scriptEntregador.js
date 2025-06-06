@@ -53,7 +53,7 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const id = sizesID;
+        const id = "" + sizesID;
         const entregador = {bicp,nome,telefone,cidade,uf,cep,id};
         if(validar(entregador)){
             inserir(entregador);
@@ -105,7 +105,7 @@ function mostrarTabelaEntregadores(){
                 <td>${listaDeEntregadores[i].cidade}</td>
                 <td>${listaDeEntregadores[i].uf}</td>
                 <td>${listaDeEntregadores[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirEntregador('${listaDeEntregadores[i].id}','${listaDeEntregadores[i].nome}','${listaDeEntregadores[i].bicp}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -122,7 +122,7 @@ function excluirEntregador(id, nome, bicp){
         }).then((resposta) => {
             if(resposta.ok){
                 obterDadosEntregadores();
-                document.getElementsId(bicp)?.remove();
+                document.getElementById(bicp)?.remove();
             }
         }).catch((erro) => {
             alert("ERRO AO TENTAR EXCLUIR AS INFORMAÇÕES DO SERVIDOR");

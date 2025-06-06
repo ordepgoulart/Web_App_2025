@@ -57,7 +57,7 @@ function manipularSubmissao(evento){
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
-        const id = sizesID;
+        const id = "" + sizesID;
         const cliente = {cpf,nome,telefone,cidade,uf,cep,id};
         if(validar(cliente)){
             inserir(cliente);
@@ -107,7 +107,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].nome}','${listaDeClientes[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}','${listaDeClientes[i].cpf}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
