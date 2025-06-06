@@ -1,24 +1,24 @@
 {
   "clientes": [
     {
-      "id": "4",
-      "cpf": "444.444.444-44",
-      "nome": "Gumball Waterson",
-      "telefone": "(18) 45632-5412",
+      "id": "0",
+      "cpf": "22122365465",
+      "nome": "MICHELY SA DA SILVA GOULART",
+      "telefone": "18995674818",
+      "cidade": "Presidente Prudente",
       "uf": "SP",
-      "cidade": "Luisvill",
-      "cep": "14023-013"
+      "cep": "564684658"
     }
   ],
   "fornecedores": [
     {
-      "id": "4c12",
-      "cnpj": "2346854687534335",
-      "nome": "Casas Bahia",
-      "telefone": "18997225452",
+      "id": 0,
+      "cnpj": "1564354783357",
+      "nome": "MICHELY SA DA SILVA GOULART",
+      "telefone": "18996234455",
       "cidade": "Presidente Prudente",
-      "uf": "SP",
-      "cep": "19062339",
+      "uf": "AL",
+      "cep": "19062-339",
       "cat": "Atacadista"
     }
   ],
@@ -44,16 +44,6 @@
       "desc": "Leg de alta costura para esportes e resistência a água."
     },
     {
-      "id": "5678541324792",
-      "fornecedor": "Casas Bahia",
-      "nome": "Alvejante",
-      "categoria": "Limpeza",
-      "estoque": "30",
-      "valor": "24.40",
-      "data": "2025-02-20",
-      "desc": "Água sanitária de alta eficiência e concentração."
-    },
-    {
       "id": "5678541324793",
       "fornecedor": "Casas Bahia",
       "nome": "Alvejante 10 L",
@@ -72,6 +62,26 @@
       "valor": "14.99",
       "data": "2025-02-20",
       "desc": "Biscoito ou bolacha recheadas sabor chocolate ao leite, feitas com leite, maisena, mel e etc."
+    },
+    {
+      "id": "1000000000000",
+      "fornecedor": "Casas Bahia",
+      "nome": "Pão de quiejo",
+      "categoria": "Alimentícios",
+      "estoque": "120",
+      "valor": "10.00",
+      "data": "2025-04-20",
+      "desc": "Pão de queijo fresquinho da mãe de Ná, feito para aquecer seu coração."
+    },
+    {
+      "id": "1000000000001",
+      "fornecedor": "MICHELY SA DA SILVA GOULART",
+      "nome": "Sabão",
+      "categoria": "Limpeza",
+      "estoque": "1",
+      "valor": "1.00",
+      "data": "2025-06-20",
+      "desc": "Mata boss em um único hit."
     }
   ],
   "categorias": [
@@ -93,7 +103,7 @@
   ],
   "entregadores": [
     {
-      "id": "215",
+      "id": "0",
       "bicp": "49907539848",
       "nome": "Laila",
       "telefone": "(18) 99699-0906",

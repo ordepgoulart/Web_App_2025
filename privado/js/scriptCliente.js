@@ -107,7 +107,7 @@ function mostrarTabelaClientes(){
                 <td>${listaDeClientes[i].cidade}</td>
                 <td>${listaDeClientes[i].uf}</td>
                 <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}','${listaDeClientes[i].nome}','${listaDeClientes[i].cpf}')"><i class="bi bi-trash">Excluir</i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].nome}','${listaDeClientes[i].id}')"><i class="bi bi-trash">Excluir</i></button></td>
             `;
             corpo.appendChild(linha);
         }
